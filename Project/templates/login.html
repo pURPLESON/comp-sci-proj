@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="login">
+    <h1>Login</h1>
+    <form action="{{ url_for('pythonlogin') }}" method="post">
+        <label for="username">
+            <i class="fas fa-user"></i>
+        </label>
+        <input type="text" name="username" placeholder="Username" id="username" required>
+        <label for="password">
+            <i class="fas fa-lock"></i>
+        </label>
+        <input type="password" name="password" placeholder="Password" id="password" required>
+        <input type="submit" value="Login">
+    </form>
+    {% if msg %}
+    <p class="message">{{ msg }}</p>
+    {% endif %}
+</div>
+{% endblock %}

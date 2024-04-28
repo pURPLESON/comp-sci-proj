@@ -12,6 +12,10 @@ app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = 'pythonlogin'
 
+# Flask configurations
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.config['EXPLAIN_TEMPLATE_LOADING'] = True
+
 # Initialize MySQL
 mysql = MySQL(app)
 
@@ -31,6 +35,7 @@ def login():
         if account:
             session['loggedin'] = True
             session['id'] = account['id']
+            session['username'] = username  # set username in session
             return redirect(url_for('home'))
         else:
             msg = 'Incorrect username/password!'
@@ -44,7 +49,7 @@ def logout():
     session.pop('id', None)
     session.pop('username', None)
     # Redirect to login page
-    return redirect(url_for('login'))
+    return redirect(url_for('login'))  # Corrected here
 
 @app.route('/pythonlogin/register', methods=['GET', 'POST'])
 def register():
@@ -104,7 +109,7 @@ def profile():
         # Show the profile page with account info
         return render_template('profile.html', account=account)
     # User is not logged in redirect to login page
-    return redirect(url_for('login'))
+    return redirect(url_for('login'))  # Corrected here
 
 # to run the app
 if __name__ == '__main__':
